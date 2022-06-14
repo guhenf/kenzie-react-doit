@@ -3,13 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.9.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
+    "axios": "^0.27.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-hook-form": "^7.32.1",
+    "react-icons": "^4.4.0",
+    "react-router-dom": "^5.3.3",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.0"
+    "react-toastify": "^9.0.4",
+    "styled-components": "^5.3.5",
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +42,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "webpack": "^5.73.0",
+    "webpack-dev-middleware": "^5.3.3",
+    "webpack-dev-server": "^4.9.2",
+    "webpack-hot-middleware": "^2.25.1"
   }
 }
