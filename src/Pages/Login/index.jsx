@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom"
+import { Link, Redirect, useHistory } from "react-router-dom"
 import { FiMail, FiLock } from "react-icons/fi"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
@@ -11,7 +11,7 @@ import Button from "../../Components/Button"
 
 import Api from "../../services/api"
 
-export default function Login() {
+export default function Login({ authenticated, setAuthenticated }) {
   const formSchema = yup.object().shape({
     email: yup.string().required("Campo obrigatório!").email("Email invalido"),
     password: yup
@@ -22,15 +22,17 @@ export default function Login() {
 
   const history = useHistory()
 
-  const onSubmitFunction = ({ name, email, password }) => {
-    const user = { name, email, password }
+  const onSubmitFunction = (data) => {
+    Api.post("/user/login", data)
+      .then((res) => {
+        const { token } = res.data
 
-    //     Api.post("/user/register", user)
-    //       .then((_) => {
-    //         toast.success("Cadastrado com sucesso!")
-    //         return history.push("/login")
-    //       })
-    //       .catch((err) => toast.error("Algo deu errado...Tente outro email!"))
+        localStorage.setItem("@Doit:token", JSON.stringify(token))
+        setAuthenticated(true)
+
+        return history.push("/dashboard")
+      })
+      .catch((_) => toast.error("Email ou senha inválidos!"))
   }
 
   const {
@@ -38,6 +40,10 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(formSchema) })
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />
+  }
 
   return (
     <Container>

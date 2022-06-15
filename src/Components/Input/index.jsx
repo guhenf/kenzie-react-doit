@@ -5,7 +5,7 @@ export default function Input({
   icon: Icon,
   register,
   name,
-  error,
+  error = "",
   ...rest
 }) {
   return (

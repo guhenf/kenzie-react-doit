@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom"
+import { Link, Redirect, useHistory } from "react-router-dom"
 import { FiUser, FiMail, FiLock } from "react-icons/fi"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
@@ -11,7 +11,7 @@ import Button from "../../Components/Button"
 
 import Api from "../../services/api"
 
-export default function Register() {
+export default function Register({ authenticated }) {
   const formSchema = yup.object().shape({
     name: yup.string().required("Campo obrigatório!"),
     email: yup.string().required("Campo obrigatório!").email("Email invalido"),
@@ -34,7 +34,7 @@ export default function Register() {
         toast.success("Cadastrado com sucesso!")
         return history.push("/login")
       })
-      .catch((err) => toast.error("Algo deu errado...Tente outro email!"))
+      .catch((_) => toast.error("Algo deu errado...Tente outro email!"))
   }
 
   const {
@@ -42,6 +42,10 @@ export default function Register() {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(formSchema) })
+
+  if (authenticated) {
+    return <Redirect to="/dashboard" />
+  }
 
   return (
     <Container>

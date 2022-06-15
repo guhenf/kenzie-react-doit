@@ -1,11 +1,15 @@
 import { Container, Content } from "./style"
 import Button from "../../Components/Button"
-import { useHistory } from "react-router-dom"
+import { Redirect, useHistory } from "react-router-dom"
 
-export default function Home() {
+export default function Home({ authenticated }) {
   const history = useHistory()
   const handleNavigation = (path) => {
     return history.push(path)
+  }
+
+  if (authenticated) {
+    return <Redirect />
   }
 
   return (
